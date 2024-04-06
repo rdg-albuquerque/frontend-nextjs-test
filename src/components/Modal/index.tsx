@@ -36,7 +36,7 @@ export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props 
 
 	return (
 		<div data-modal-wrapper className={styles.wrapper} onClick={handleCloseClick} onKeyDown={handleKeyDown}>
-			<div data-modal-container>
+			<div data-modal-container onClick={(e) => e.stopPropagation()}>
 				<header data-modal-header>
 					<h2>{title}</h2>
 
