@@ -34,17 +34,32 @@ export default function CicloDeVida({ initialCount }: CicloDeVidaProps) {
 	}
 
 	useEffect(() => {
-		window.addEventListener('onCounterMount', (event: CustomEventInit) => {
+		function handleOnCounterMount (event: CustomEventInit) {
 			console.log('onCounterMount');
-		});
-
-		window.addEventListener('onCounterUnmount', (event: CustomEventInit) => {
+		}
+		function handleOnCounterUnount (event: CustomEventInit) {
 			console.log('onCounterUnmount');
-		});
-
-		window.addEventListener('onCounterUpdate', (event: CustomEventInit) => {
+		}
+		function handleOnCounterUpdate (event: CustomEventInit<{count: number}>) {
 			console.log('onCounterUpdate');
-		});
+
+			if ((event.detail?.count || 0) >= 10) {
+				setShowCounter(false);
+				setCount(0);
+				return;
+			}
+			setCount(event.detail?.count || 0);
+		}
+
+		window.addEventListener('onCounterMount', handleOnCounterMount);
+		window.addEventListener('onCounterUnmount', handleOnCounterUnount);
+		window.addEventListener('onCounterUpdate', handleOnCounterUpdate);
+
+		return () => {
+			window.removeEventListener('onCounterMount', handleOnCounterMount);
+			window.removeEventListener('onCounterUnmount', handleOnCounterUnount);
+			window.removeEventListener('onCounterUpdate', handleOnCounterUpdate);
+		}
 	}, []);
 
 	return (
