@@ -26,6 +26,12 @@
 	border: 1px solid #ccc;
 }
 
+.content form span {
+	font-size: 0.75rem;
+	padding-left: 1rem;
+	color: rgb(204, 49, 49);
+}
+
 .content form button {
 	width: 50%;
 	margin-left: auto;
