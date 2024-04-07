@@ -6,6 +6,17 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	animation: toast-in-right 250ms;
+	transition: transform 250ms, opacity 250ms, box-shadow 250ms ease-in-out;
+}
+
+@keyframes toast-in-right {
+	from {
+	  transform: translateX(100%);
+	}
+	to {
+	  transform: translateX(0);
+	}
 }
 
 .container [data-close] {

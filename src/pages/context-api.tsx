@@ -10,27 +10,24 @@
 import styles from '@/styles/context-api.module.css';
 import { IToastMessage } from '@/types/toast-message';
 import { ToastMessage } from '@/components/ToastMessage';
+import { useToast } from '@/contexts/toast-context';
 
 export default function ContextApi() {
-	const messages: Array<IToastMessage> = [
-		{
-			id: '1',
-			message: 'Mensagem de sucesso',
-			type: 'success',
-		},
-		{
-			id: '2',
-			message: 'Mensagem de erro',
-			type: 'error',
-		},
-	];
+	const {messages, toast} = useToast();
 
 	function handleSuccessButtonClick() {
-		alert('Method: handleSuccessButtonClick not implemented');
+		toast({
+			message: 'Mensagem de sucesso',
+			type: 'success'
+		})
 	}
 
 	function handleErrorButtonClick() {
-		alert('Method: handleErrorButtonClick not implemented');
+		toast({
+			message: 'Mensagem de erro',
+			type: 'error'
+		})
+
 	}
 
 	return (
