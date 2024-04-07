@@ -13,9 +13,22 @@
 import { NextApiRequest, NextApiResponse } from 'next/types';
 
 import { IUser } from '@/types/user.d';
+import { faker } from '@faker-js/faker/locale/pt_BR';
+import { ApiMethod } from '@/decorators/method';
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-	const users: Array<unknown> = [];
+export default ApiMethod('GET')(async (req: NextApiRequest, res: NextApiResponse) => {
+	const users: Array<IUser> = Array.from({length: 10}, (a, b) => b + 1)
+	.map((id) => {
+		const fullName = faker.person.fullName();
+		const [firstName, lastName] = fullName.split(' ');
+		return {
+			id,
+			name: fullName,
+			email: faker.internet.email({firstName, lastName}).toLowerCase(),
+		}
+	})
+	.sort((a, b) => a.id - b.id);
 
-	return res.status(500).json(users);
-};
+	return res.status(200).json(users);
+});
+
