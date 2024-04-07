@@ -17,6 +17,15 @@ import { Modal } from '@/components/Modal';
 export default function Home() {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
+	function handleModalConfirm() {
+		setModalIsOpen(false);
+		alert('confirmado');
+	}
+
+	function handleModalClose() {
+		setModalIsOpen(false);
+	}
+
 	return (
 		<>
 			<main className={styles.container}>
@@ -26,6 +35,24 @@ export default function Home() {
 			</main>
 
 			{/* Renderizar modal de confirmação */}
+			{/* Nota: Eu realmente não entendi esse desafio, a descrição acima diz para
+			'criar' um componente para o modal de confirmação, porém já temos um modal
+			reutilizável. Seria esse componente um outro modal ou está se referindo a 
+			um componente filho do modal para o conteúdo? Eu realmente to bem perdido aqui :/
+			*/}
+			<Modal 
+				isOpen={modalIsOpen}
+				title="Confirmação"
+				onClose={handleModalClose}
+				onConfirm={handleModalConfirm}
+				footer={{ confirmText: 'Confirmar' }}
+			>
+				<ModalContent />
+			 </Modal>
 		</>
 	);
+}
+
+const ModalContent: React.FC = () => {
+	return <div className={styles.container}>Content goes here</div>
 }
